@@ -7,11 +7,22 @@ public class PodstawowyAI : MonoBehaviour
     //Public Variables
     public float speed = 3.0f;
     public float obstacleRange = 5.0f;
+    public const float baseSpeed = 3.0f;
 
     //Private Variables
     private bool _alive;
     [SerializeField] private GameObject _fireballPrefab;
     private GameObject _fireball;
+
+    private void Awake()
+    {
+        Messenger<float>.AddListener(GameEvent.SPEED_CHANGED, OnSpeedChanged);
+    }
+
+    private void OnDestroy()
+    {
+        Messenger<float>.RemoveListener(GameEvent.SPEED_CHANGED, OnSpeedChanged);
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -52,5 +63,10 @@ public class PodstawowyAI : MonoBehaviour
     public void SetAlive(bool alive)
     {
         _alive = alive;
+    }
+
+    private void OnSpeedChanged(float value)
+    {
+        speed = baseSpeed * value;
     }
 }

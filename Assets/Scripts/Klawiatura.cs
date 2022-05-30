@@ -9,9 +9,21 @@ public class Klawiatura : MonoBehaviour
     //Public Variables
     public float speed = 6.0f;
     public float gravity = -9.8f;
+    public const float baseSpeed = 6.0f;
+    public float pushForce = 3.0f;
 
     //Private Variables
     private CharacterController _charController;
+
+    private void Awake()
+    {
+        Messenger<float>.AddListener(GameEvent.SPEED_CHANGED, OnSpeedChanged);
+    }
+
+    private void OnDestroy()
+    {
+        Messenger<float>.RemoveListener(GameEvent.SPEED_CHANGED, OnSpeedChanged);
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -31,4 +43,10 @@ public class Klawiatura : MonoBehaviour
         movement = transform.TransformDirection(movement);
         _charController.Move(movement);
     }
+
+    private void OnSpeedChanged(float value)
+    {
+        speed = baseSpeed * value;
+    }
+
 }

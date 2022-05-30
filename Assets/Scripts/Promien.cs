@@ -39,6 +39,7 @@ public class Promien : MonoBehaviour
                 if (target != null)
                 {
                     target.ReactToHit();
+                    Messenger.Broadcast(GameEvent.ENEMY_HIT);
                 }
                 else
                 {
