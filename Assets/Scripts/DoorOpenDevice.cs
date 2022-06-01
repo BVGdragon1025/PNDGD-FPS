@@ -27,15 +27,35 @@ public class DoorOpenDevice : MonoBehaviour
     {
         if (_open)
         {
-            Vector3 pos = transform.position - _dPos;
-            transform.position = pos;
+            Vector3 pos = transform.localPosition - _dPos;
+            transform.localPosition = pos;
         }
         else
         {
-            Vector3 pos = transform.position + _dPos;
-            transform.position = pos;
+            Vector3 pos = transform.localPosition + _dPos;
+            transform.localPosition= pos;
         }
         _open = !_open;
+    }
+
+    public void Activate()
+    {
+        if (!_open)
+        {
+            Vector3 pos = transform.localPosition + _dPos;
+            transform.localPosition = pos;
+            _open = true;
+        }
+    }
+
+    public void Deactivate()
+    {
+        if (_open)
+        {
+            Vector3 pos = transform.localPosition - _dPos;
+            transform.localPosition = pos;
+            _open = false;
+        }
     }
 
 }

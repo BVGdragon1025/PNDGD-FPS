@@ -49,4 +49,12 @@ public class Klawiatura : MonoBehaviour
         speed = baseSpeed * value;
     }
 
+    private void OnControllerColliderHit(ControllerColliderHit hit)
+    {
+        Rigidbody body = hit.collider.attachedRigidbody;
+        if(body != null && !body.isKinematic)
+        {
+            body.velocity = hit.moveDirection * pushForce;
+        }
+    }
 }
