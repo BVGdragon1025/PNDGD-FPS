@@ -26,6 +26,10 @@ public class Managers : MonoBehaviour
 
     private IEnumerator StartupManagers()
     {
+        foreach(IGameManager manager in _startSequence)
+        {
+            manager.Startup();
+        }
         yield return null;
         int numModules = _startSequence.Count;
         int numReady = 0;
@@ -33,7 +37,7 @@ public class Managers : MonoBehaviour
         {
             int lastReady = numReady;
             numReady = 0;
-            foreach(IGameManager manager in _startSequence)
+            foreach (IGameManager manager in _startSequence)
             {
                 if(manager.status == ManagerStatus.Started)
                 {

@@ -7,9 +7,9 @@ public class CollectibleItem : MonoBehaviour
     //Private Variables
     [SerializeField] private string itemName;
 
-    private void OnTriggerEnter(Collider other)
+    void OnTriggerEnter(Collider other)
     {
-        Debug.Log("Item collided: " + itemName);
+        Managers.Inventory.AddItem(itemName);
         Destroy(this.gameObject);
     }
 

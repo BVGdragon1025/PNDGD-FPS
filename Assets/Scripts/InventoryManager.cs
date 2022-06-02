@@ -7,21 +7,37 @@ public class InventoryManager : MonoBehaviour, IGameManager
     //Public variables
     public ManagerStatus status { get; private set; }
 
+    //Private Variables
+    private Dictionary<string, int> _items;
+
     public void Startup()
     {
         Debug.Log("Inventory manager starting...");
+        _items = new Dictionary<string, int>();
         status = ManagerStatus.Started;
     }
 
-    // Start is called before the first frame update
-    void Start()
+    private void DisplayItems()
     {
-        
+        string itemDisplay = "Items: ";
+        foreach(KeyValuePair<string, int> item in _items)
+        {
+            itemDisplay += item.Key + "(" + item.Value + ")";
+        }
+        Debug.Log(itemDisplay);
     }
 
-    // Update is called once per frame
-    void Update()
+    public void AddItem(string name)
     {
-        
+        if (_items.ContainsKey(name))
+        {
+            _items[name] += 1;
+        }
+        else
+        {
+            _items[name] = 1;
+        }
+        DisplayItems();
     }
+
 }
